@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Popup from "./Popup";
+import CajaComponent from "./CajaComponent";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -67,8 +68,11 @@ class Body extends React.Component {
           {cajas /*Si cajas es != null entro al ? else :     , .map recorre el array de cajas y adentro de los () defino una funcion donde el item es cada caja, y por cada item se van a visualizar en la interfaz */ ? (
             cajas.map(item => (
               <Grid item xs={4}>
-                <img src={box} alt={"caja"}></img>
-                <text color="#6F461F">{item.nombre}</text>
+               {/*El CajaComponent debe recibir el link y el nombre del json y estar dentro de un for each por la coleccion de jsons*/}
+                <CajaComponent
+                  link=''
+                  nombre=''
+                  />
               </Grid>
             ))
           ) : (
