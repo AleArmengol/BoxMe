@@ -89,6 +89,7 @@ export default function Popup() {
                 borderRadius: "50px",
                 backgroundColor: "#6F461F"
               }}
+              href='/caja'
             >
               Agregar
             </Button>

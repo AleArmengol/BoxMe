@@ -70,8 +70,8 @@ class Body extends React.Component {
               <Grid item xs={4}>
                {/*El CajaComponent debe recibir el link y el nombre del json y estar dentro de un for each por la coleccion de jsons*/}
                 <CajaComponent
-                  link=''
-                  nombre=''
+                  link='/caja'
+                  nombre='Caja Cocina'
                   />
               </Grid>
             ))

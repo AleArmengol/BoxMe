@@ -1,6 +1,7 @@
 import React from 'react'
 import CajaComponent from './CajaComponent'
 import Popup from "./Popup";
+import {Container, Grid} from '@material-ui/core';
 
 class Cajas extends React.Component{
     render() {
