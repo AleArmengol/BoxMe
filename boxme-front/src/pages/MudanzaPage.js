@@ -6,7 +6,15 @@ function MudanzaPage() {
     return (
       <div>
         <Menu/>
-        <MudanzaComponent/>
+        <MudanzaComponent
+        title='Saavedra - Urquiza'
+        />
+        <MudanzaComponent
+        title='Olivos - Caballito'
+        />
+        <MudanzaComponent
+        title='Flores - Devoto'
+        />
       </div>   
     );
   }
