@@ -3,7 +3,7 @@ import Menu from '../components/Menu.js'
 import Body from '../components/Body.js';
 
 
-function Mudanza() {
+function CajaPage() {
     return (
       <div>
         <Menu/>
@@ -12,4 +12,4 @@ function Mudanza() {
     );
   }
   
-  export default Mudanza
+  export default CajaPage

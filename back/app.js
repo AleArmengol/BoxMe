@@ -47,6 +47,7 @@ app.listen(app.get("port"), () => {
   console.log(`Server on port ${app.get("port")}`); //muestra por consola que puerto usa
 });
 
+//METODO DE GONZA, SE PUEDE ELIMINAR
 app.use(
   //router.get('/', (req, res) => { res.send('hello') }),
 

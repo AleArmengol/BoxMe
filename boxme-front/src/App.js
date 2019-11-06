@@ -1,11 +1,11 @@
 import React from 'react';
-import Mudanza from './pages/Mudanza.js';
+import MudanzaPage from './pages/MudanzaPage';
 import './App.css';
 
 function App() {
   return (
     <div>
-      <Mudanza/>
+      <MudanzaPage/>
     </div>   
   );
 }
