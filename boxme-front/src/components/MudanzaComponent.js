@@ -5,7 +5,7 @@ function MudanzaComponent(props) {
         <div class="card mb-3" style={{maxWidth: '540px', marginBottom: '7px'}}>
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <img src="{props.imgsrc}" class="card-img" alt="..." />
+                    <img src={props.imgsrc} class="card-img" alt="..." />
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
