@@ -117,38 +117,48 @@ app.get("/api/getCajas", function(req, res) {
   });
 });
 
-function pause(millis) {
-  var date = new Date();
-  var curDate = null;
-  do {
-    curDate = new Date();
-  } while (curDate - date < millis);
-}
-
 app.delete("/api/deleteCaja", function(req, res) {
-  var idCaja = req.body.idCaja;
-  idCaja = "'" + idCaja + "'";
+  vaciarYEliminarCaja(req, res);
+});
 
-  //Primero eliminamos todos los items de esa caja
-  var queryDeleteItems = "DELETE FROM Items WHERE idCaja =" + idCaja;
-  var requestDeleteItems = new sql.Request();
-  requestDeleteItems.query(queryDeleteItems, function(err) {
+app.delete("/api/deleteMudanza", function(req, res) {
+  var idMudanza = req.body.idMudanza;
+  let cajas;
+
+  //Seleccionamos todas las cajas de esa mudanza
+  var querySelectCajas = "SELECT * FROM Cajas WHERE idMudanza =" + idMudanza;
+  var request = new sql.Request();
+  request.query(querySelectCajas, function(err, recordset) {
     if (err) {
       console.log(err);
     } else {
-      res.send("Success");
-    }
-  });
+      cajas = recordset.recordset;
+      for (iterador in cajas) {
+        idCaja = cajas[iterador].idCaja;
+        vaciarYEliminarCaja(idCaja);
+      }
 
-  //Ahora eliminamos la caja
-  pause(1000);
-  var queryDeleteCaja = "DELETE FROM Cajas WHERE idCaja =" + idCaja;
-  var requestDeleteCaja = new sql.Request();
-  requestDeleteCaja.query(queryDeleteCaja, function(err) {
-    if (err) {
-      console.log(err);
-    } else {
-      //res.send("Success");
+      //Eliminamos las cajas a los usuarios en (UsuariosMudanza)
+      var queryDeleteUsuariosMudanza =
+        "DELETE FROM UsuariosMudanza WHERE idMudanza =" + idMudanza;
+      var request = new sql.Request();
+      request.query(queryDeleteUsuariosMudanza, function(err, recordset) {
+        if (err) {
+          console.log("Error al eliminar UsuariosMudanza");
+        } else {
+          // //Ahora eliminamos la mudanza
+          var queryDeleteMudanza =
+            "DELETE FROM Mudanzas WHERE idMudanza =" + idMudanza;
+          var request = new sql.Request();
+          request.query(queryDeleteMudanza, function(err, recordset) {
+            if (err) {
+              console.log("Error al eliminar mudanza");
+            } else {
+              res.send("Se elimino correctamente la mudanza");
+            }
+          });
+        }
+      });
     }
   });
 });
@@ -156,9 +166,7 @@ app.delete("/api/deleteCaja", function(req, res) {
 app.get("/api/getItems", function(req, res) {
   var idCaja = req.body.idCaja;
   idCaja = "'" + idCaja + "'"; //se le agregan las comillas simples para armar la query correctamente
-  console.log(idCaja);
   var query = "SELECT * FROM Items WHERE idCaja =" + idCaja;
-  console.log("QUERY: " + query);
   var request = new sql.Request();
   request.query(query, function(err, recordset) {
     if (err) {
@@ -171,7 +179,6 @@ app.get("/api/getItems", function(req, res) {
 
 app.post("/api/insertarCaja", function(req, res) {
   var nombre = req.body.caja;
-  //console.log(nombre);
   request = new Request("INSERT Cajas (nombre) VALUES (@nombre)", function(
     error
   ) {
@@ -188,9 +195,6 @@ app.post("/api/insertarItem", function(req, res) {
   var idCaja = req.body.idCaja;
   var nombre = req.body.nombre;
   var cant = req.body.cant;
-  console.log(idCaja);
-  console.log(nombre);
-  console.log(cant);
   var request = new Request(
     "INSERT INTO Items (idCaja,nombre, cant) VALUES (@idCaja, @nombre, @cant)",
     function(error) {
@@ -206,9 +210,8 @@ app.post("/api/insertarItem", function(req, res) {
   res.end("Success");
 });
 
-app.delete("/api/deleteItem", function(req, res) {
+app.delete("/api/deleteItemByNombre", function(req, res) {
   var nombre = req.body.nombre;
-  console.log(nombre);
   request = new Request("DELETE FROM Items WHERE nombre = @nombre", function(
     error
   ) {
@@ -222,17 +225,16 @@ app.delete("/api/deleteItem", function(req, res) {
 });
 
 app.delete("/api/deleteItemById", function(req, res) {
-  var idCaja = req.body.idCaja;
-  console.log(idCaja);
-  var request = new Request(
-    "DELETE FROM Items WHERE idCaja = @idCaja",
-    function(error) {
-      if (error) {
-        console.log(error);
-      }
+  var idItem = req.body.idItem;
+  console.log(idItem);
+  request = new Request("DELETE FROM Items WHERE idItem = @idItem", function(
+    error
+  ) {
+    if (error) {
+      console.log(error);
     }
-  );
-  request.addParameter("idCaja", TYPES.VarChar, idCaja);
+  });
+  request.addParameter("idItem", TYPES.VarChar, idItem);
   connection.execSql(request);
   res.end("Success");
 });
@@ -298,8 +300,6 @@ app.put("/api/updateNombreCaja", function(req, res) {
 app.put("/api/updateNombreMudanzas", function(req, res) {
   var nombre = req.body.nombre;
   var idMudanza = req.body.idMudanza;
-  console.log(nombre);
-  console.log(idMudanza);
   request = new Request(
     "UPDATE Mudanzas SET nombre = @nombre WHERE idMudanza= @idMudanza",
     function(error) {
@@ -313,6 +313,28 @@ app.put("/api/updateNombreMudanzas", function(req, res) {
   connection.execSql(request);
   res.end("Success");
 });
+
+function vaciarYEliminarCaja(idCaja) {
+  idCaja = "'" + idCaja + "'";
+
+  //Primero eliminamos todos los items de esa caja
+  var queryDeleteItems = "DELETE FROM Items WHERE idCaja =" + idCaja;
+  var requestDeleteItems = new sql.Request();
+  requestDeleteItems.query(queryDeleteItems, function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      //Ahora eliminamos la caja
+      var queryDeleteCaja = "DELETE FROM Cajas WHERE idCaja =" + idCaja;
+      var requestDeleteCaja = new sql.Request();
+      requestDeleteCaja.query(queryDeleteCaja, function(err) {
+        if (err) {
+          console.log(err);
+        }
+      });
+    }
+  });
+}
 
 //ESTA ES LA MANERA EN LA QUE SE DEBE LLAMAR A LOS METODOS DESDE EL FRONT
 // sa
