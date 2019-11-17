@@ -1,0 +1,20 @@
+.navbar-style{
+    background-color: #FFCE8D;
+}
+
+.navbar-light .navbar-toggler{
+    color: #FFCE8D;
+    border-color: #FFCE8D;
+}
+
+@media screen and (max-width:800px){
+    .buscar-web{
+        display: none;
+    }
+}
+
+@media screen and (min-width:800px){
+    .buscar-mobile.navbar-nav {
+        display: none;
+    }
+}

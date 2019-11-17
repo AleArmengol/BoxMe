@@ -1,7 +1,6 @@
 import React from 'react';
-import Menu from '../components/Menu.js'
-import BodyCaja from '../components/BodyCaja.js';
-
+import Menu from '../components/Navbar/Menu.js'
+import BodyCaja from '../components/BodyCaja/BodyCaja';
 
 function CajaPage() {
     return (
