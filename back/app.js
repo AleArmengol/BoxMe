@@ -47,36 +47,6 @@ app.listen(app.get("port"), () => {
   console.log(`Server on port ${app.get("port")}`); //muestra por consola que puerto usa
 });
 
-app.use(
-  //router.get('/', (req, res) => { res.send('hello') }),
-
-  router.get("/cajas/obtener", (req, res) => {
-    //ruta , funcion (req->lo que requiere, res-> lo que responde)
-    const statement = "SELECT * FROM Cajas FOR JSON PATH"; // sentencia sql seleciona todas las casas y devuelve en formato JSON
-    function handleResult(err, numRows, rows) {
-      //manejador de resultados, si hay error lo muestra
-      if (err) return console.error("Error: ", err);
-    }
-    let results = "";
-    let request = new tedious.Request(statement, handleResult); //crea la request con la sentencia creada y se le pasa el manejador de resultado, son los parametros que requiere
-    request.on("row", function(columns) {
-      //aca ya esta buscando en la bd por filas y columnas
-      columns.forEach(function(column) {
-        results += column.value + " ";
-      });
-    });
-    request.on("doneProc", function(rowCount, more, returnStatus, rows) {
-      //si el resultado quedo vacio es porque no encontro nada en la bd, asi que setea la respuesta en no hay cajas, sino se le pasa el resultado.
-      if (results == "") {
-        res.status(404).json("No hay cajas registradas");
-      } else {
-        res.json(results);
-      }
-    });
-    connection.execSql(request); //para ver el orden y entenderlo agregar console.log("1,2,3...")
-  })
-);
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -106,16 +76,16 @@ app.get("/api/getMudanzas", function(req, res) {
 
 app.get("/api/getCajas", function(req, res) {
   var idMudanza = req.body.idMudanza;
-  var query = "SELECT * FROM Cajas WHERE idMudanza =" + idMudanza;
-  var request = new sql.Request();
-  request.query(query, function(err, recordset) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send(recordset.recordset);
-    }
-  });
+  obtenerCajas(idMudanza, res);
 });
+
+function pause(millis) {
+  var date = new Date();
+  var curDate = null;
+  do {
+    curDate = new Date();
+  } while (curDate - date < millis);
+}
 
 app.delete("/api/deleteCaja", function(req, res) {
   vaciarYEliminarCaja(req, res);
@@ -173,6 +143,59 @@ app.get("/api/getItems", function(req, res) {
       console.log(err);
     } else {
       res.send(recordset.recordset);
+    }
+  });
+});
+
+app.get("/api/verificarLogIn", function(req, res) {
+  var nombreUsuario = req.body.idUsuario;
+  idUsuario = "'" + nombreUsuario + "'";
+  var password = req.body.password;
+  password = "'" + password + "'";
+  var query =
+    "SELECT * FROM Usuarios WHERE idUsuario =" +
+    idUsuario +
+    "AND contraseña =" +
+    password;
+  var request = new sql.Request();
+  request.query(query, function(err, recordset) {
+    if (err) {
+      res.send("Error al verificar LogIn");
+    } else {
+      if (recordset.recordset.length === 1) {
+        res.send("success");
+      } else {
+        res.send("El usuario o contraseña ingresados no son correctos");
+      }
+    }
+  });
+});
+
+app.get("/api/registrarUsuario", function(req, res) {
+  var nombreUsuario = req.body.idUsuario;
+  idUsuario = "'" + nombreUsuario + "'";
+  var password = req.body.password;
+  password = "'" + password + "'";
+  var query = "SELECT * FROM Usuarios WHERE idUsuario =" + idUsuario;
+  var request = new sql.Request();
+  request.query(query, function(err, recordset) {
+    if (err) {
+      console.log("Error al verificar usuario");
+    } else {
+      if (recordset.recordset.length === 1) {
+        res.send("El usuario ingresado ya existe");
+      } else {
+        var queryRegistrar =
+          "INSERT INTO Usuarios VALUES(" + idUsuario + "," + password + ")";
+        var requestRegistrar = new sql.Request();
+        requestRegistrar.query(queryRegistrar, function(err, recordset) {
+          if (err) {
+            res.send("Error al registrar usuario");
+          } else {
+            res.send("success");
+          }
+        });
+      }
     }
   });
 });
@@ -312,6 +335,87 @@ app.put("/api/updateNombreMudanzas", function(req, res) {
   request.addParameter("idMudanza", TYPES.VarChar, idCaja);
   connection.execSql(request);
   res.end("Success");
+});
+
+function obtenerCajas(idMudanza, res) {
+  console.log("RES: " + res);
+  var query = "SELECT * FROM Cajas WHERE idMudanza = " + idMudanza;
+  var request = new sql.Request();
+  console.log(query);
+  request.query(query, function(err, recordset) {
+    if (err) {
+      console.log(err);
+    } else {
+      //console.log("RECORDSET CAJA " + recordset.recordset[0].nombre);
+      //console.log("I am ready");
+      if (res != null) {
+        console.log("Cajas: " + recordset.recordset[0].nombre);
+        console.log("RES2: " + res);
+        res.send(recordset.recordset);
+      } else {
+        console.log(recordset.recordset[0].nombre);
+        return recordset.recordset;
+      }
+    }
+  });
+}
+
+app.get("/api/buscarEnCajas", function(req, res) {
+  var idMudanzaAux = req.body.idMudanza;
+  var idMudanza = req.body.idMudanza;
+  idMudanza = "'" + idMudanza + "'";
+  var busqueda = req.body.busqueda;
+  busqueda = busqueda;
+  var queryBuscarCaja =
+    "SELECT * FROM Cajas WHERE nombre LIKE '%" +
+    busqueda +
+    "%' AND idMudanza =" +
+    idMudanza;
+  var requestBusquedaCaja = new sql.Request();
+  requestBusquedaCaja.query(queryBuscarCaja, function(err, recordsetCaja) {
+    if (err) {
+      res.send(
+        "Hubo un error al buscar las cajas, intentelo de nuevo mas tarde"
+      );
+    } else {
+      var cajas;
+      var queryCajas = "SELECT * FROM Cajas WHERE idMudanza = " + idMudanza;
+      var requestCajas = new sql.Request();
+      requestCajas.query(queryCajas, function(err, recordset) {
+        if (err) {
+          console.log(err);
+        } else {
+          var recordsetItemList = [];
+          for (iterador in recordset.recordset) {
+            idCaja = recordset.recordset[iterador].idCaja;
+            idCaja = "'" + idCaja + "'";
+            var queryBuscarItems =
+              "SELECT * FROM Items WHERE nombre LIKE '%" +
+              busqueda +
+              "%' AND idCaja =" +
+              idCaja;
+            var requestBusquedaItems = new sql.Request();
+            requestBusquedaItems.query(queryBuscarItems, function(
+              err,
+              recordsetItem
+            ) {
+              if (err) {
+                res.send(
+                  "Hubo un error al buscar los items, intentelo de nuevo mas tarde"
+                );
+              } else {
+                var resultado = [
+                  recordsetCaja.recordset,
+                  recordsetItem.recordset
+                ];
+                res.send(resultado);
+              }
+            });
+          }
+        }
+      });
+    }
+  });
 });
 
 function vaciarYEliminarCaja(idCaja) {
