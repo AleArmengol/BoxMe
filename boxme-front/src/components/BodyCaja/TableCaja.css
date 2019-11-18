@@ -1,0 +1,27 @@
+.list-group-item{
+    display: flex;
+}
+
+.btn.btn-primary{
+    color: #FFFFFF;
+    background-color:#6F461F;
+    border-color:#6F461F;
+    outline: 0;
+    box-shadow: none;
+}
+
+.btn.btn-primary:hover{
+    color: #6F461F;
+    background-color:#FFFFFF;
+    border-color:#6F461F;
+    outline: 0;
+    box-shadow: none;
+}
+
+.btn.btn-primary:focus{
+    color: #6F461F;
+    background-color:#FFFFFF;
+    border-color:#6F461F;
+    outline: 0;
+    box-shadow: none;
+}
