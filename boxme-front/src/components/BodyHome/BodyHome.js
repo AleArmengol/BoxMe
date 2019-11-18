@@ -11,7 +11,7 @@ class BodyHome extends React.Component {
                 <div>
                     <Container className="mt-3">
                         <Row className="ml-auto">
-                            <h4>Mis Mudanzas</h4>
+                            <h3>Mis Mudanzas</h3>
                         </Row>
                         <Row className="ml-auto">
                             <MudanzaComponent
@@ -33,7 +33,7 @@ class BodyHome extends React.Component {
                         </Row>
                     </Container>
                 </div>
-                <div style={{display:'flex',justifyContent:'right', marginRight:'50px'}}>
+                <div>
                     <Popup 
                     title="Crear Mudanza"
                     placeholder="Nombre de la Mudanza"

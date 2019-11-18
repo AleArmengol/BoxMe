@@ -8,8 +8,11 @@ class BodyMudanza extends React.Component {
     return (
       <div>
         <div>
-          <Container fixed style={{ marginTop: 100 }}>
-            <Row>
+          <Container className="mt-3">
+            <Row className="ml-auto">
+              <h3>Devoto - Campana</h3>
+            </Row>
+            <Row className="ml-auto">
               <Col>
                 <CajaComponent
                   link="/caja"
@@ -25,7 +28,7 @@ class BodyMudanza extends React.Component {
             </Row>
           </Container>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'right', marginRight: '50px' }}>
+        <div>
           <Popup
             title="Crear Caja"
             placeholder="Nombre de la Caja"

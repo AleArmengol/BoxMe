@@ -1,0 +1,50 @@
+.MuiButtonBase-root.MuiFab-root{
+    background-color: #FFFFFF;
+    color: #FFD79A;
+    display: flex;
+}
+
+.MuiButtonBase-root.MuiFab-root:hover{
+    background-color: #FFFFFF;
+}
+
+.modal-title.h4{
+    color: #6F461F;
+}
+
+.btn.btn-primary {
+    color:#fff;
+    background-color:#6F461F;
+    border-color:#6F461F;
+}
+
+.btn.btn-primary:hover {
+    color:#fff;
+    background-color:#6F461F;
+    border-color:#6F461F;
+}
+
+.close > span:nth-child(1){
+    color: #6F461F;
+    text-shadow: none;
+}
+
+.fade.modal-backdrop.show{
+    opacity: .9;
+}
+
+.fade.modal-backdrop{
+    background-color: #FFFFFF;
+}
+
+.modal-footer{
+    background-color: #FFD79A;
+}
+
+.modal-body{
+    background-color: #FFD79A;
+}
+
+.modal-header{
+    background-color: #FFD79A;
+}

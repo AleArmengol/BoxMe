@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Modal, FormControl } from 'react-bootstrap';
 import { Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import './Popup.css';
 
 function Popup(props) {
   const [show, setShow] = React.useState(false);
@@ -11,12 +12,13 @@ function Popup(props) {
 
   return (
     <>
-      <Fab onClick={handleShow}>
-        <AddIcon />
-      </Fab>
-
+      <div className="mb-3 mr-3" style={{display:'flex', justifyContent:'right'}}>
+        <Fab className="align-bottom" onClick={handleShow}>
+          <AddIcon />
+        </Fab>
+      </div>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header style={{ borderBottom: 'none' }} closeButton>
           <Modal.Title>{props.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -26,7 +28,7 @@ function Popup(props) {
             aria-describedby="basic-addon1"
           />
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer style={{ borderTop: 'none' }}>
           <Button variant="primary" onClick={handleClose}>
             Agregar
           </Button>

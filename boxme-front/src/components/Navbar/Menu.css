@@ -7,6 +7,14 @@
     border-color: #FFCE8D;
 }
 
+.mr-auto.form-control:focus {
+    color: #495057;
+    background-color:#fff;
+    border-color:#6F461F;
+    outline: 0;
+    box-shadow: none;
+}
+
 @media screen and (max-width:800px){
     .buscar-web{
         display: none;
