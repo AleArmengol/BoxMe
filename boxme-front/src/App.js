@@ -2,6 +2,7 @@ import React from 'react';
 import HomePage from './pages/HomePage';
 import CajaPage from './pages/CajaPage';
 import MudanzaPage from './pages/MudanzaPage';
+import loadingimage from './photos/loadingimage.png';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -34,7 +35,7 @@ class App extends React.Component {
     const { loading } = this.state;
 
     if (loading) {
-      return <div className="loader"></div>;
+      return <img scr={loadingimage}></img>; //Ver por que no esta llamando a la imagen de carga
     } else {
       return (
         routing

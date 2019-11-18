@@ -8,7 +8,7 @@ class BodyCaja extends React.Component {
         return (
             <div>
                 <div>
-                    <Container fixed style={{ marginTop: 100 }}>
+                    <Container className="mt-3">
                         <TableCaja
                         item="Autito de Coleccion"
                         />

@@ -2,11 +2,6 @@
     background-color: #FFCE8D;
 }
 
-.navbar-light .navbar-toggler{
-    color: #FFCE8D;
-    border-color: #FFCE8D;
-}
-
 .mr-auto.form-control:focus {
     color: #495057;
     background-color:#fff;
@@ -15,8 +10,15 @@
     box-shadow: none;
 }
 
+.navbar-toggler{
+    border-color: #FFCE8D !important;
+}
+
 @media screen and (max-width:800px){
     .buscar-web{
+        display: none;
+    }
+    .navbar-brand.navbar-brand {
         display: none;
     }
 }

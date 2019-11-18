@@ -1,5 +1,5 @@
 import React from "react";
-import {Navbar, Nav, Form, FormControl} from 'react-bootstrap';
+import { Navbar, Nav, Form, FormControl } from 'react-bootstrap';
 import box from '../../photos/box.png';
 import './Menu.css';
 
@@ -9,11 +9,11 @@ class Menu extends React.Component {
       <Navbar className="navbar-style" expand="lg">
         <Navbar.Brand href="/home">
           <img
-          alt=""
-          src={box}
-          width="35"
-          height="35"
-          className="d-inline-block align-top"
+            alt=""
+            src={box}
+            width="35"
+            height="35"
+            className="d-inline-block align-top"
           />
           {'BoxMe!'}
         </Navbar.Brand>

@@ -1,7 +1,25 @@
 .card-title{
     color: #6F461F;
+    font-size: x-large;
 }
 
 h3{
     color: #6F461F;
+}
+
+.ml-auto.row{
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+@media screen and (max-width:800px){
+    .card-body.card-body{
+        padding: 0;
+    }
+}
+
+@media screen and (min-width:800px){
+    .padding-button{
+        padding-left: 20px;
+    }
 }
