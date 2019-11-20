@@ -8,6 +8,8 @@ var TYPES = require("tedious").TYPES;
 const router = express.Router();
 var sa = require("superagent");
 var sql = require("mssql");
+var cors = require("cors");
+
 
 var config = {
   //variable donde guardamos la conexion a la base de datos.
@@ -15,15 +17,15 @@ var config = {
   authentication: {
     type: "default",
     options: {
-      userName: "sa",
-      password: "alexis1398" //CAMBIAR A LA CONTRASEÑA DE CADA UNO
+      userName: "sa2",
+      password: "1234" //CAMBIAR A LA CONTRASEÑA DE CADA UNO
     }
   },
   options: {
     //puede que generer error, comentar encrypt si es asi
     // If you are on Microsoft Azure, you need encryption:
     encrypt: true,
-    database: "BoxMeDB" //nombre de la base de datos creada en sql CADA UNO PONGA SU BD
+    database: "BoxMe" //nombre de la base de datos creada en sql CADA UNO PONGA SU BD
   }
 };
 
@@ -49,6 +51,7 @@ app.listen(app.get("port"), () => {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 sql.connect(config, function(err) {
   if (err) {
@@ -58,11 +61,12 @@ sql.connect(config, function(err) {
   }
 });
 
-app.get("/api/getMudanzas", function(req, res) {
+app.post("/api/getMudanzas", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var idUsuario = req.body.idUsuario;
   idUsuario = "'" + idUsuario + "'"; //se le agregan las comillas simples para armar la query correctamente
   console.log(idUsuario);
-  var query = "SELECT * FROM UsuariosMudanza WHERE idUsuario =" + idUsuario;
+  var query = "SELECT nombre FROM (UsuariosMudanza INNER JOIN Mudanzas ON UsuariosMudanza.idMudanza=Mudanzas.idMudanza) WHERE idUsuario =" + idUsuario;
   console.log("QUERY: " + query);
   var request = new sql.Request();
   request.query(query, function(err, recordset) {
@@ -75,6 +79,7 @@ app.get("/api/getMudanzas", function(req, res) {
 });
 
 app.get("/api/getCajas", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var idMudanza = req.body.idMudanza;
   obtenerCajas(idMudanza, res);
 });
@@ -88,10 +93,12 @@ function pause(millis) {
 }
 
 app.delete("/api/deleteCaja", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   vaciarYEliminarCaja(req, res);
 });
 
 app.delete("/api/deleteMudanza", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var idMudanza = req.body.idMudanza;
   let cajas;
 
@@ -134,6 +141,7 @@ app.delete("/api/deleteMudanza", function(req, res) {
 });
 
 app.get("/api/getItems", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var idCaja = req.body.idCaja;
   idCaja = "'" + idCaja + "'"; //se le agregan las comillas simples para armar la query correctamente
   var query = "SELECT * FROM Items WHERE idCaja =" + idCaja;
@@ -148,6 +156,7 @@ app.get("/api/getItems", function(req, res) {
 });
 
 app.get("/api/verificarLogIn", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var nombreUsuario = req.body.idUsuario;
   idUsuario = "'" + nombreUsuario + "'";
   var password = req.body.password;
@@ -172,6 +181,7 @@ app.get("/api/verificarLogIn", function(req, res) {
 });
 
 app.get("/api/registrarUsuario", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var nombreUsuario = req.body.idUsuario;
   idUsuario = "'" + nombreUsuario + "'";
   var password = req.body.password;
@@ -201,6 +211,7 @@ app.get("/api/registrarUsuario", function(req, res) {
 });
 
 app.post("/api/insertarCaja", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var nombre = req.body.caja;
   request = new Request("INSERT Cajas (nombre) VALUES (@nombre)", function(
     error
@@ -215,6 +226,7 @@ app.post("/api/insertarCaja", function(req, res) {
 });
 
 app.post("/api/insertarItem", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var idCaja = req.body.idCaja;
   var nombre = req.body.nombre;
   var cant = req.body.cant;
@@ -234,6 +246,7 @@ app.post("/api/insertarItem", function(req, res) {
 });
 
 app.delete("/api/deleteItemByNombre", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var nombre = req.body.nombre;
   request = new Request("DELETE FROM Items WHERE nombre = @nombre", function(
     error
@@ -248,6 +261,7 @@ app.delete("/api/deleteItemByNombre", function(req, res) {
 });
 
 app.delete("/api/deleteItemById", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var idItem = req.body.idItem;
   console.log(idItem);
   request = new Request("DELETE FROM Items WHERE idItem = @idItem", function(
@@ -263,6 +277,7 @@ app.delete("/api/deleteItemById", function(req, res) {
 });
 
 app.put("/api/updateNombreItem", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var nombre = req.body.nombre;
   var idItem = req.body.idItem;
   console.log(nombre);
@@ -282,6 +297,7 @@ app.put("/api/updateNombreItem", function(req, res) {
 });
 
 app.put("/api/updateCantidadItem", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var cantidad = req.body.cantidad;
   var idItem = req.body.idItem;
   console.log(nombre);
@@ -302,6 +318,7 @@ app.put("/api/updateCantidadItem", function(req, res) {
 });
 
 app.put("/api/updateNombreCaja", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var nombre = req.body.nombre;
   var idCaja = req.body.idCaja;
   console.log(nombre);
@@ -321,6 +338,7 @@ app.put("/api/updateNombreCaja", function(req, res) {
 });
 
 app.put("/api/updateNombreMudanzas", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var nombre = req.body.nombre;
   var idMudanza = req.body.idMudanza;
   request = new Request(
@@ -338,6 +356,7 @@ app.put("/api/updateNombreMudanzas", function(req, res) {
 });
 
 function obtenerCajas(idMudanza, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   console.log("RES: " + res);
   var query = "SELECT * FROM Cajas WHERE idMudanza = " + idMudanza;
   var request = new sql.Request();
@@ -361,6 +380,7 @@ function obtenerCajas(idMudanza, res) {
 }
 
 app.get("/api/buscarEnCajas", function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var idMudanzaAux = req.body.idMudanza;
   var idMudanza = req.body.idMudanza;
   idMudanza = "'" + idMudanza + "'";
@@ -440,26 +460,3 @@ function vaciarYEliminarCaja(idCaja) {
   });
 }
 
-//ESTA ES LA MANERA EN LA QUE SE DEBE LLAMAR A LOS METODOS DESDE EL FRONT
-// sa
-// 	.post('http://localhost:8080/api/insertarItem')
-// 	.send({
-// 		idCaja: 'AGR-891',
-// 		nombre: 'Secador de pelo',
-// 		cant: 1
-// 	})
-// 	.end(function(err, res) {
-// 		if (err) {
-// 			console.log('Hubo un error al insertar item');
-// 		} else {
-// 			console.log(res);
-// 		}
-// 	});
-
-// sa.get('/obtenerCajas').end(function(err, res){
-// 	if(err){
-// 		console.log('Eror al obtener las cajas');
-// 	} else{
-// 		console.log(res);
-// 	}
-// })

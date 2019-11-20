@@ -1,4 +1,6 @@
 import React from 'react';
+// import LogInPage from './pages/LogInPage';
+// import RegistracionPage from './pages/RegistracionPage';
 import HomePage from './pages/HomePage';
 import CajaPage from './pages/CajaPage';
 import MudanzaPage from './pages/MudanzaPage';
