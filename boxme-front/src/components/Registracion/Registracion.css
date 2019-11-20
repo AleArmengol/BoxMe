@@ -1,4 +1,4 @@
-img{
+.Fondo{
     position: fixed;
     width: 100%;
     max-width: 100%;
@@ -13,7 +13,7 @@ img{
     top: 0px;
 }
 
-.Label-Registracion{
+/* .Label-Registracion{
 
     position: absolute;
     width: 283px;
@@ -28,7 +28,7 @@ img{
     line-height: 37px;
 
     color: #6F461F;
-}
+} */
 
 .idusuario{
     position: absolute;
@@ -41,7 +41,7 @@ img{
     border-radius: 50px;
 }
 
-.Password{
+.Contraseña{
     position: absolute;
     width: 260px;
     height: 40px;

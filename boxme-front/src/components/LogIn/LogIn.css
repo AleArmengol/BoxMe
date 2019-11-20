@@ -1,4 +1,22 @@
-img{
+ /* body{
+    background: url(fondo.png) center;
+    max-width: 100%;
+}
+.Logo{
+position: absolute;
+width: 311px;
+height: 311px;
+left: 51px;
+top: 0px;
+}  */
+/* body{
+    position: relative;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+} */
+.Fondo{
     position: fixed;
     width: 100%;
     max-width: 100%;
@@ -13,7 +31,7 @@ img{
     top: 0px;
 }
 
-.Label-LogIn{
+/* .Label-LogIn{
 
     position: absolute;
     width: 283px;
@@ -28,7 +46,7 @@ img{
     line-height: 37px;
 
     color: #6F461F;
-}
+} */
 
 .idusuario{
     position: absolute;
@@ -41,7 +59,7 @@ img{
     border-radius: 50px;
 }
 
-.password{
+.Contraseña{
 position: absolute;
 width: 260px;
 height: 40px;
@@ -61,8 +79,15 @@ border-radius: 50px;
     
     background: #6F461F;
     border-radius: 50px;
+
+    font-family: Quicksand;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 30px;
+    color: #FFFFFF;
 } 
-.btn-registro{
+.btn-registrarme{
     position: absolute;
     width: 200px;
     height: 40px;
@@ -71,4 +96,11 @@ border-radius: 50px;
     
     background: #6F461F;
     border-radius: 50px;
+
+    font-family: Quicksand;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 30px;
+    color: #FFFFFF;
 }

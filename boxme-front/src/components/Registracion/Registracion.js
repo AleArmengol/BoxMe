@@ -1,92 +1,59 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import {Button} from 'react-bootstrap';
-import axios from 'axios';
-import fondo from '../../photos/fondo.png';
-import logo from '../../photos/LogoCaja.png';
+
+// import axios from 'axios';
+import fondo from '../Registracion/fondo.png';
+import logo from '../Registracion/LogoCaja.png';
+import { Container, Row, Image, Button, FormControl} from "react-bootstrap";
 import './Registracion.css';
 
 export default class Registracion extends React.Component {
-
-    constructor(props) {
-        super(props);
-        
-        this.state = {
-            idusuario: "",
-            contraseña:"",
-            confirmacion_contraseña:"",
-            erroresRegistracion:""
-        }
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
-    handleChange(event) {
-        this.setState({
-        [event.target.className]: event.target.value
-    });
-}
-    handleSubmit(event) {
-        const{
-            idusuario, 
-            contraseña,
-            confirmacion_contraseña
-        } = this.state;
-
-        axios
-        .post("https://localhost:3001/Registracion", 
-        {
-            user: {
-                idusuario: idusuario,
-                contraseña: contraseña,
-                confirmacion_contraseña: confirmacion_contraseña
-            }
-        },
-
-        { withCredentials: true }
-
-        )
-        .then(Response => {
-            console.log("LogIn res", Response);
-        })
-        .catch(error => {
-            console.log("registracion error", error);
-        });
-        event.preventDefault();
-    }
     render() {
         return (
-            <form>
-                <div onSubmit={this.handleSubmit} ></div>
-                <img src= {fondo} alt="El fondo"/>
-                <img className="Logo" src= {logo} alt="El logo"/>
-                <label className = "Label-Registracion">Crea tu cuenta</label>
-            
-                    <input
-                        type="usuario" 
-                        className="idusuario" 
-                        placeholder="Ingrese nombre de usuario"
-                        value={this.state.idusuario} onChange={this.handleChange} required
-                    />
+            <Container className="mt-3">
+                <Image className="Fondo" src= {fondo} alt="El fondo"/>
+            <Row className="mx-auto">
+                <Image className="Logo" src={logo} alt="El logo" />
+            </Row>
+            <Row className = "Label-Registro">
+                <h3>Crea tu cuenta</h3>
+                </Row>
+            <Row className ="mx-auto"
 
-                <input 
-                    type="password" 
-                    className="Password"
-                    placeholder="Ingresar contraseña" 
-                    // value={this.state.contraseña} onChange={this.handleChange} required
-                />
+            />
             
-                <input 
-                    type="password" 
-                    className="repetirContraseña" 
-                    placeholder="Repetir contraseña"
-                    // value={this.state.contraseña} onChange={this.handleChange} required  
+            <Row className="mx-auto">
+            <FormControl
+                className = "idusuario"
+                aria-label="Default"
+                aria-describedby="inputGroup-sizing-default"
+                placeholder="Ingrese nombre de usuario"
+            />
+            </Row>
+            <Row className="mx-auto">
+                <FormControl
+                type="password"
+                className = "Contraseña"
+                aria-label="Default"
+                aria-describedby="inputGroup-sizing-default"
+                placeholder="Ingresar contraseña"
                 />
-        
-                <button type="submit" className="btn-registrar">Crear</button>
-
-            </form>
+            </Row>
+            <Row ClassName="mx-auto">
+                 <FormControl
+                     type="password" 
+                     className="repetirContraseña" 
+                     aria-label="Default"
+                     aria-describedby="inputGroup-sizing-default"
+                     placeholder="Repetir contraseña"
+                 />
+            </Row>
+            <Row className="mx-auto">
+            <Button href= "/Home" type="submit" variant="secondary" className="btn-registrar">Crear</Button>
+            </Row>
+          </Container>
         );
     }
 
     }
+
