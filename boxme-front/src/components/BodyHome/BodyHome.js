@@ -3,8 +3,31 @@ import MudanzaComponent from './MudanzaComponent';
 import Popup from '../Popup/Popup';
 import { Container, Row } from 'react-bootstrap';
 import './BodyHome.css';
+import { ContactSupportOutlined } from '@material-ui/icons';
 
 class BodyHome extends React.Component {
+    state = {
+        loading: true,
+        mudanzas: [],
+    };
+
+
+    async componentDidMount() {
+        const url = "http://localhost:8080/api/getMudanzas";
+        const data = { "idUsuario": "Ernesto98" };
+       
+        const response = await fetch(url, {
+                method: 'POST',
+                mode: "cors",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            const resultado = await response.json();
+            this.setState({mudanzas: resultado});
+            console.log(this.state.mudanzas);
+    }
+
+
     render() {
         return (
             <div>
