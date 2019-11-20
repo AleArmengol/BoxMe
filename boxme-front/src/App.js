@@ -1,4 +1,6 @@
 import React from 'react';
+// import LogInPage from './pages/LogInPage';
+// import RegistracionPage from './pages/RegistracionPage';
 import HomePage from './pages/HomePage';
 import CajaPage from './pages/CajaPage';
 import MudanzaPage from './pages/MudanzaPage';
@@ -13,8 +15,8 @@ const routing = (
       <Route exact path="/" component={HomePage} />
       <Route path="/home" component={HomePage} />
       {/*<Route path="/busqueda" component={Busqueda} />*/}
-      {/*<Route path="/login" component={LogIn} />*/}
-      {/*<Route path="/signup" component={SignUp} />*/}
+      {/* <Route path="/login" component={LogInPage} />
+      <Route path="/registracion" component={RegistracionPage} /> */}
       <Route path="/mudanza" component={MudanzaPage} />
       <Route path="/caja" component={CajaPage}/>
     </div>
