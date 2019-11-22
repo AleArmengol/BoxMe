@@ -11,8 +11,8 @@ function Popup(props) {
   const handleShow = () => setShow(true);
 
   return (
-    <>
-      <div className="mb-3 mr-3" style={{display:'flex', justifyContent:'right'}}>
+    <div>
+      <div className="mb-3 mr-3" style={{display:'flex', justifyContent:'right', float:'right'}}>
         <Fab className="align-bottom" onClick={handleShow}>
           <AddIcon />
         </Fab>
@@ -34,7 +34,7 @@ function Popup(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 }
 

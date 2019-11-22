@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Form, FormControl } from 'react-bootstrap';
+import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import box from '../../photos/box.png';
 import './Menu.css';
 
@@ -19,19 +19,21 @@ class Menu extends React.Component {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Nav className="buscar-mobile">
-          <Form inline>
-            <FormControl type="text" placeholder="Buscar" className="mr-auto" />
+          <Form inline> {/*Ver el tema del inline en mobile*/}
+            <FormControl type="search" placeholder="Buscar" className="mr-sm-2"/>
+            <Button href="/busqueda">Ir!</Button>
           </Form>
         </Nav>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/signin">Cuenta</Nav.Link>
+            <Nav.Link href="/login">Cuenta</Nav.Link>
             <Nav.Link href="/home">Mis Mudanzas</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <div className="buscar-web">
           <Form inline>
-            <FormControl type="text" placeholder="Buscar" className="mr-auto" />
+            <FormControl type="search" placeholder="Buscar" className="mr-sm-2" />
+            <Button href="/busqueda">Ir!</Button>
           </Form>
         </div>
       </Navbar>

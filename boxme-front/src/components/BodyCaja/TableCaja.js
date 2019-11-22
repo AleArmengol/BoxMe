@@ -10,7 +10,7 @@ function TableCaja(props) {
                 <ListGroup.Item style={{display: 'flex'}}>
                     {props.item}
                     <div className="ml-auto">
-                        <Button style={{marginRight:'10px'}}>
+                        <Button style={{marginRight:'10px', marginLeft:'10px'}}>
                           <DeleteOutline/>  
                         </Button>
                         <Button>

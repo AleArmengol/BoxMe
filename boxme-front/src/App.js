@@ -4,6 +4,8 @@ import React from 'react';
 import HomePage from './pages/HomePage';
 import CajaPage from './pages/CajaPage';
 import MudanzaPage from './pages/MudanzaPage';
+import SearchPage from './pages/SearchPage';
+import InfoPage from './pages/InfoPage';
 import loadingimage from './photos/loadingimage.png';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,11 +16,12 @@ const routing = (
     <div>
       <Route exact path="/" component={HomePage} />
       <Route path="/home" component={HomePage} />
-      {/*<Route path="/busqueda" component={Busqueda} />*/}
-      {/* <Route path="/login" component={LogInPage} />
-      <Route path="/registracion" component={RegistracionPage} /> */}
+      <Route path="/busqueda" component={SearchPage} />
+      {/*<Route path="/login" component={LogIn} />*/}
+      {/*<Route path="/signup" component={SignUp} />*/}
       <Route path="/mudanza" component={MudanzaPage} />
       <Route path="/caja" component={CajaPage}/>
+      <Route path="/info" component={InfoPage}/>
     </div>
   </Router>
 )
@@ -37,7 +40,7 @@ class App extends React.Component {
     const { loading } = this.state;
 
     if (loading) {
-      return <img scr={loadingimage}></img>; //Ver por que no esta llamando a la imagen de carga
+      return <img scr={loadingimage} alt="..."></img>; //Ver por que no esta llamando a la imagen de carga
     } else {
       return (
         routing

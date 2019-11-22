@@ -3,6 +3,12 @@
     font-size: x-large;
 }
 
+.card-title:hover{
+    color: #FFFFFF;
+    font-size: x-large;
+    text-decoration: none;
+}
+
 h3{
     color: #6F461F;
 }

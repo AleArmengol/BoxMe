@@ -1,6 +1,6 @@
 import React from 'react';
 import Popup from '../Popup/Popup';
-import { Container} from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import TableCaja from './TableCaja';
 
 class BodyCaja extends React.Component {
@@ -10,21 +10,26 @@ class BodyCaja extends React.Component {
                 <div>
                     <Container className="mt-3">
                         <TableCaja
-                        item="Autito de Coleccion"
+                            item="Autito de Coleccion"
                         />
                         <TableCaja
-                        item="Vinilo de los Beatles"
+                            item="Vinilo de los Beatles"
                         />
                         <TableCaja
-                        item="Vajilla de la Abuela"
+                            item="Vajilla de la Abuela"
                         />
                     </Container>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'right', marginRight: '50px' }}>
-                    <Popup
-                        title="Crear Item"
-                        placeholder="Nombre del Item"
-                    />
+                <div>
+                    <div>
+                        <Popup
+                            title="Crear Item"
+                            placeholder="Nombre del Item"
+                        />
+                    </div>
+                    <div>
+                        <Button style={{marginTop:'5px', marginLeft:'5px'}} href="/mudanza">Volver a Mis Cajas</Button>
+                    </div>
                 </div>
             </div>
         );
