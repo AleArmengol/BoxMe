@@ -212,15 +212,19 @@ app.get("/api/registrarUsuario", function(req, res) {
 
 app.post("/api/insertarCaja", function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  var codcaja = req.body.codigocaja;
   var nombre = req.body.caja;
-  request = new Request("INSERT Cajas (nombre) VALUES (@nombre)", function(
+  var idmud = req.body.idmudanza;
+  request = new Request("INSERT INTO Cajas VALUES (@codcaja, @nombre, @idmud)", function(
     error
   ) {
     if (error) {
       console.log(error);
     }
   });
+  request.addParameter("codcaja", TYPES.VarChar, codcaja);
   request.addParameter("nombre", TYPES.VarChar, nombre);
+  request.addParameter("idmud", TYPES.Int, idmud);
   connection.execSql(request);
   res.end("Success");
 });
