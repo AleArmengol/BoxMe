@@ -62,7 +62,7 @@ sql.connect(config, function(err) {
 });
 
 app.post("/api/getMudanzas", function(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3002');
   var idUsuario = req.body.idUsuario;
   idUsuario = "'" + idUsuario + "'"; //se le agregan las comillas simples para armar la query correctamente
   console.log(idUsuario);
