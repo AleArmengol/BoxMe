@@ -18,7 +18,7 @@ var config = {
     type: "default",
     options: {
       userName: "sa2",
-      password: "1234" //CAMBIAR A LA CONTRASEÑA DE CADA UNO
+      password: "password" //CAMBIAR A LA CONTRASEÑA DE CADA UNO
     }
   },
   options: {
@@ -210,6 +210,7 @@ app.get("/api/registrarUsuario", function(req, res) {
   });
 });
 
+/*
 app.post("/api/insertarCaja", function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var codcaja = req.body.codigocaja;
@@ -228,6 +229,78 @@ app.post("/api/insertarCaja", function(req, res) {
   connection.execSql(request);
   res.end("Success");
 });
+*/
+
+//nuevo insertar caja con alfanumerico
+app.post("/api/insertarCaja", function(req, res) {
+  var idCaja = req.body.idCaja;
+  var nombre = req.body.nombre;
+  var idMudanza = req.body.idMudanza;
+  var rLetter = randomString(3, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+  var rNumbers = randomString(3, '0123456789');
+  idCaja = rLetter + "-" + rNumbers;
+  idCaja = "'" + idCaja + "'"; //se le agregan las comillas simples para armar la query correctamente
+  var query = "SELECT * FROM Cajas WHERE idCaja = " + idCaja;
+  console.log("QUERY: " + query);
+  var request1 = new sql.Request();
+  request1.query(query, function(err, recordset) {
+    if (err) {
+      //Si falla el select con el idCaja significa que no existe dicha clave entonces intentamos hacer el insert
+      console.log("no existe dicha clave, voy a insertarla");
+      idCaja= idCaja.replace(/'/g,'');//se le sacan las comillas simples para hacer el insert a la db
+      console.log(idCaja);
+      var request2 = new Request("INSERT Cajas (idCaja, nombre, idMudanza) VALUES (@idCaja, @nombre, @idMudanza)", function(
+        error
+      ) {
+        if (error) 
+        {
+          console.log(error);
+        }
+      });
+      request2.addParameter("idCaja", TYPES.VarChar, idCaja);
+      request2.addParameter("nombre", TYPES.VarChar, nombre);
+      request2.addParameter("idMudanza", TYPES.VarChar, idMudanza);
+      connection.execSql(request2);
+      res.end("Success");
+    } 
+    else 
+    {
+      //si encuentra la clave, tenemos que generar una nueva y volver hacer el insert
+      console.log("dicha clave ya existe, voy a regenerarla y luego insertarla (las probabilidades de una nueva ocurrencia son muy bajas)");
+      rLetter = randomString(3, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+      rNumbers = randomString(3, '0123456789');
+      idCaja = rLetter + "-" + rNumbers;
+      idCaja = "'" + idCaja + "'"; //se le agregan las comillas simples para armar la query correctamente
+      query = "SELECT * FROM Cajas WHERE idCaja =" + idCaja;
+      console.log("QUERY: " + query);
+      var request3 = new sql.Request();
+      request3.query(query, function(err, recordset) {
+        idCaja= idCaja.replace(/'/g,'');//se le sacan las comillas simples para hacer el insert a la db
+        console.log(idCaja);
+        var request4 = new Request("INSERT Cajas (idCaja, nombre, idMudanza) VALUES (@idCaja, @nombre, @idMudanza)", function(
+          error
+        ) {
+          if (error) 
+          {
+            console.log(error);
+          }
+        });
+        request4.addParameter("idCaja", TYPES.VarChar, idCaja);
+        request4.addParameter("nombre", TYPES.VarChar, nombre);
+        request4.addParameter("idMudanza", TYPES.VarChar, idMudanza);
+        connection.execSql(request4);
+        res.end("Success");
+      });
+    }
+  });
+});
+
+//metodo para el random alfanumerico
+function randomString(length, chars) {
+  var result = '';
+  for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+  return result;
+}
 
 app.post("/api/insertarItem", function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
