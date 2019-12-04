@@ -18,7 +18,7 @@ var config = {
     type: "default",
     options: {
       userName: "sa2",
-      password: "password" //CAMBIAR A LA CONTRASEÑA DE CADA UNO
+      password: "1234" //CAMBIAR A LA CONTRASEÑA DE CADA UNO
     }
   },
   options: {
@@ -62,11 +62,11 @@ sql.connect(config, function(err) {
 });
 
 app.post("/api/getMudanzas", function(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3002');
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var idUsuario = req.body.idUsuario;
   idUsuario = "'" + idUsuario + "'"; //se le agregan las comillas simples para armar la query correctamente
   console.log(idUsuario);
-  var query = "SELECT nombre FROM (UsuariosMudanza INNER JOIN Mudanzas ON UsuariosMudanza.idMudanza=Mudanzas.idMudanza) WHERE idUsuario =" + idUsuario;
+  var query = "SELECT * FROM (UsuariosMudanza INNER JOIN Mudanzas ON UsuariosMudanza.idMudanza=Mudanzas.idMudanza) WHERE idUsuario =" + idUsuario;
   console.log("QUERY: " + query);
   var request = new sql.Request();
   request.query(query, function(err, recordset) {
@@ -78,7 +78,7 @@ app.post("/api/getMudanzas", function(req, res) {
   });
 });
 
-app.get("/api/getCajas", function(req, res) {
+app.post("/api/getCajas", function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var idMudanza = req.body.idMudanza;
   obtenerCajas(idMudanza, res);
@@ -140,7 +140,7 @@ app.delete("/api/deleteMudanza", function(req, res) {
   });
 });
 
-app.get("/api/getItems", function(req, res) {
+app.post("/api/getItems", function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var idCaja = req.body.idCaja;
   idCaja = "'" + idCaja + "'"; //se le agregan las comillas simples para armar la query correctamente

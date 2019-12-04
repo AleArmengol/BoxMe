@@ -15,12 +15,12 @@ const routing = (
   <Router>
     <div>
       <Route exact path="/" component={HomePage} />
-      <Route path="/home" component={HomePage} />
-      <Route path="/busqueda" component={SearchPage} />
+      <Route path="/home/:id" component={HomePage} />
+      <Route path="/busqueda/:buscar" component={SearchPage} />
       {/*<Route path="/login" component={LogIn} />*/}
       {/*<Route path="/signup" component={SignUp} />*/}
-      <Route path="/mudanza" component={MudanzaPage} />
-      <Route path="/caja" component={CajaPage}/>
+      <Route path="/mudanza/:id" component={MudanzaPage} />
+      <Route path="/caja/:id" component={CajaPage}/>
       <Route path="/info" component={InfoPage}/>
     </div>
   </Router>

@@ -3,13 +3,18 @@ import Menu from '../components/Navbar/Menu'
 import BodyMudanza from '../components/BodyMudanza/BodyMudanza';
 
 
-function MudanzaPage() {
+class MudanzaPage extends React.Component {
+  render() {
+    const id = this.props.match.params.id;
+    console.log("id mudanza", this.props.match.params.id);
     return (
       <div>
-        <Menu/>
-        <BodyMudanza/>
-      </div>   
+        <Menu />
+        <BodyMudanza
+        idMud = {id} />
+      </div>
     );
   }
-  
-  export default MudanzaPage;
+}
+
+export default MudanzaPage;

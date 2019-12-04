@@ -5,6 +5,9 @@ import TableCaja from '../BodyCaja/TableCaja';
 import './BodySearch.css';
 
 class BodySearch extends React.Component {
+
+
+    
     render() {
         return (
             <div>
