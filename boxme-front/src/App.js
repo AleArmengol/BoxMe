@@ -17,8 +17,8 @@ const routing = (
       <Route exact path="/" component={HomePage} />
       <Route path="/home/:id" component={HomePage} />
       <Route path="/busqueda/:buscar" component={SearchPage} />
-      {/*<Route path="/login" component={LogIn} />*/}
-      {/*<Route path="/signup" component={SignUp} />*/}
+      {/*<Route path="/login" component={LogInPage} />}
+      {<Route path="/signup" component={RegistracionPage} />*/}
       <Route path="/mudanza/:id" component={MudanzaPage} />
       <Route path="/caja/:id" component={CajaPage}/>
       <Route path="/info" component={InfoPage}/>

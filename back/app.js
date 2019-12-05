@@ -456,7 +456,7 @@ function obtenerCajas(idMudanza, res) {
   });
 }
 
-app.get("/api/buscarEnCajas", function(req, res) {
+app.post("/api/buscarEnCajas", function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var idMudanzaAux = req.body.idMudanza;
   var idMudanza = req.body.idMudanza;
