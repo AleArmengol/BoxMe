@@ -12,8 +12,8 @@ function Popup(props) {
 
   return (
     <div>
-      <div className="mb-3 mr-3" style={{display:'flex', justifyContent:'right', float:'right'}}>
-        <Fab className="align-bottom" onClick={handleShow}>
+      <div>
+        <Fab onClick={handleShow}>
           <AddIcon />
         </Fab>
       </div>

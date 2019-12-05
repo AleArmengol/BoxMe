@@ -1,9 +1,14 @@
 import React from 'react';
 import MudanzaComponent from './MudanzaComponent';
 import Popup from '../Popup/Popup';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import './BodyHome.css';
 import Spinner from 'react-bootstrap/Spinner';
+import mudanzacardcreate from '../../photos/mudanzacardcreate.jpg';
+
+function renderTooltip(props) {
+    return <Tooltip {...props}>¡Haz click para crear una Mudanza!</Tooltip>;
+}
 
 class BodyHome extends React.Component {
     constructor() {
@@ -19,7 +24,7 @@ class BodyHome extends React.Component {
         const url = "http://localhost:8080/api/getMudanzas";
         const id = this.props.idUsu;
         const data = { "idUsuario": id };
-        console.log("props id",data);
+        console.log("props id", data);
 
         const response = await fetch(url, {
             method: 'POST',
@@ -62,16 +67,35 @@ class BodyHome extends React.Component {
                         <Row className="ml-auto">
                             <h3>Mis Mudanzas</h3>
                         </Row>
+                        <Row>
+                            <OverlayTrigger
+                                placement="right"
+                                delay={{ show: 250, hide: 400 }}
+                                overlay={renderTooltip}
+                            >
+                                <div className="card mb-3 popup-web" style={{ maxWidth: '540px', marginBottom: '7px', marginTop: '10px' }}>
+                                    <img src={mudanzacardcreate} className="card-img" alt="..."></img>
+                                    <div className="card-img-overlay">
+                                        <div className="card-body row d-flex justify-content-center">
+                                            <Popup
+                                                title="Crear Mudanza"
+                                                placeholder="Nombre de la Mudanza"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </OverlayTrigger>
+                        </Row>
                         {this.mostrarSpinner()}
                     </Container>
                 </div>
-                <div>
+                <div className="float-right mr-2 popup-mobile">
                     <Popup
                         title="Crear Mudanza"
                         placeholder="Nombre de la Mudanza"
                     />
                 </div>
-            </div>
+            </div >
         );
     }
 }
