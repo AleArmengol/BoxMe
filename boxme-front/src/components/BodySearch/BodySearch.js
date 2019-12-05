@@ -4,10 +4,7 @@ import CajaComponent from '../BodyMudanza/CajaComponent';
 import TableCaja from '../BodyCaja/TableCaja';
 import './BodySearch.css';
 
-class BodySearch extends React.Component {
-
-
-    
+class BodySearch extends React.Component { 
     render() {
         return (
             <div>

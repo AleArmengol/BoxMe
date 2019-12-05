@@ -19,14 +19,16 @@ class Menu extends React.Component {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Nav className="buscar-mobile">
-          <Form inline> {/*Ver el tema del inline en mobile*/}
-            <FormControl type="search" placeholder="Buscar" className="mr-sm-2"/>
-            <Button href="/busqueda">Ir!</Button>
+          <Form inline>
+            <FormControl type="search" placeholder="Buscar" className="col-8 mr-2"/>
+            <Button href="/busqueda" className="col-2">Ir!</Button>
           </Form>
         </Nav>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/login">Cuenta</Nav.Link>
+            {/*Cambiar con el Session/Local Storage que en lugar de que diga Cuenta diga: ¡Bienvenido y el nombre de usuario!*/}
+            {/*<Nav.Link>¡Bienvenido nombre de usuario!</Nav.Link>*/}
             <Nav.Link href="/home">Mis Mudanzas</Nav.Link>
           </Nav>
         </Navbar.Collapse>
