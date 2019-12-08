@@ -1,5 +1,5 @@
 import React from "react";
-import Popup from "../Popup/Popup";
+import PopupMudanza from "./PopupMudanza";
 import CajaComponent from "./CajaComponent";
 import { Container, Row, Col } from "react-bootstrap";
 import Spinner from 'react-bootstrap/Spinner';
@@ -41,12 +41,18 @@ class BodyMudanza extends React.Component {
         <div>
           {this.state.cajas.map((mud, index) =>
             <div key={mud.name + "-" + index}>
-              <Col>
-                <CajaComponent
-                  link={("/caja/").concat(mud.idCaja)}
-                  nombre={mud.nombre}
-                />
-              </Col>
+              <div>
+                <Container>
+                  <Row>
+                    <Col>
+                      <CajaComponent
+                        link={("/caja/").concat(mud.idCaja)}
+                        nombre={mud.nombre}
+                      />
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
             </div>)}
         </div>
       )
@@ -69,13 +75,10 @@ class BodyMudanza extends React.Component {
               {this.mostrarSpinner()}
             </Row>
           </Container>
-      </div>
-      <div>
-        <Popup
-          title="Crear Caja"
-          placeholder="Nombre de la Caja"
-        />
-      </div>
+        </div>
+        <div>
+          <PopupMudanza />
+        </div>
       </div >
     );
   }

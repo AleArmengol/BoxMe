@@ -14,8 +14,8 @@ import './App.css';
 const routing = (
   <Router>
     <div>
+      <Route path="/home" component={HomePage} />
       <Route exact path="/" component={HomePage} />
-      <Route path="/home/:id" component={HomePage} />
       <Route path="/busqueda/:buscar" component={SearchPage} />
       <Route path="/login" component={LogInPage} />
       <Route path="/signup" component={SignUpPage} />

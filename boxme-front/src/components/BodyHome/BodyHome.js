@@ -1,6 +1,6 @@
 import React from 'react';
 import MudanzaComponent from './MudanzaComponent';
-import Popup from '../Popup/Popup';
+import PopupHome from './PopupHome';
 import { Container, Row, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import './BodyHome.css';
 import Spinner from 'react-bootstrap/Spinner';
@@ -22,7 +22,8 @@ class BodyHome extends React.Component {
 
     async componentDidMount() {
         const url = "http://localhost:8080/api/getMudanzas";
-        const id = this.props.idUsu;
+        const id = sessionStorage.getItem('idUsuario');
+        console.log("id",id);
         const data = { "idUsuario": id };
         console.log("props id", data);
 
@@ -77,10 +78,7 @@ class BodyHome extends React.Component {
                                     <img src={mudanzacardcreate} className="card-img" alt="..."></img>
                                     <div className="card-img-overlay">
                                         <div className="card-body row d-flex justify-content-center">
-                                            <Popup
-                                                title="Crear Mudanza"
-                                                placeholder="Nombre de la Mudanza"
-                                            />
+                                            <PopupHome />
                                         </div>
                                     </div>
                                 </div>
@@ -90,10 +88,7 @@ class BodyHome extends React.Component {
                     </Container>
                 </div>
                 <div className="float-right mr-2 popup-mobile">
-                    <Popup
-                        title="Crear Mudanza"
-                        placeholder="Nombre de la Mudanza"
-                    />
+                    <PopupHome />
                 </div>
             </div >
         );

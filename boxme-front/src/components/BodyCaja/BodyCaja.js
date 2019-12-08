@@ -1,5 +1,5 @@
 import React from 'react';
-import Popup from '../Popup/Popup';
+import PopupCaja from './PopupCaja';
 import { Container, Button } from 'react-bootstrap';
 import TableCaja from './TableCaja';
 import Spinner from 'react-bootstrap/Spinner';
@@ -62,10 +62,7 @@ class BodyCaja extends React.Component {
                 </div>
                 <div>
                     <div>
-                        <Popup
-                            title="Crear Item"
-                            placeholder="Nombre del Item"
-                        />
+                        <PopupCaja/>
                     </div>
                     <div>
                         <Button style={{ marginTop: '5px', marginLeft: '5px' }} href="/mudanza">Volver a Mis Cajas</Button>

@@ -155,17 +155,18 @@ app.post("/api/getItems", function(req, res) {
   });
 });
 
-app.get("/api/verificarLogIn", function(req, res) {
+app.post("/api/verificarLogIn", function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var nombreUsuario = req.body.idUsuario;
-  idUsuario = "'" + nombreUsuario + "'";
+  nombreUsuario = "'" + nombreUsuario + "'";
   var password = req.body.password;
   password = "'" + password + "'";
   var query =
-    "SELECT * FROM Usuarios WHERE idUsuario =" +
-    idUsuario +
-    "AND contraseña =" +
+    "SELECT * FROM Usuarios WHERE idUsuario = " +
+    nombreUsuario +
+    " AND contraseña = " +
     password;
+  console.log(query);
   var request = new sql.Request();
   request.query(query, function(err, recordset) {
     if (err) {
@@ -180,13 +181,14 @@ app.get("/api/verificarLogIn", function(req, res) {
   });
 });
 
-app.get("/api/registrarUsuario", function(req, res) {
+app.post("/api/registrarUsuario", function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   var nombreUsuario = req.body.idUsuario;
-  idUsuario = "'" + nombreUsuario + "'";
+  nombreUsuario = "'" + nombreUsuario + "'";
   var password = req.body.password;
   password = "'" + password + "'";
-  var query = "SELECT * FROM Usuarios WHERE idUsuario =" + idUsuario;
+  var query = "SELECT * FROM Usuarios WHERE idUsuario =" + nombreUsuario;
+  console.log(query);
   var request = new sql.Request();
   request.query(query, function(err, recordset) {
     if (err) {
@@ -197,6 +199,7 @@ app.get("/api/registrarUsuario", function(req, res) {
       } else {
         var queryRegistrar =
           "INSERT INTO Usuarios VALUES(" + idUsuario + "," + password + ")";
+        console.log(queryRegistrar);
         var requestRegistrar = new sql.Request();
         requestRegistrar.query(queryRegistrar, function(err, recordset) {
           if (err) {
