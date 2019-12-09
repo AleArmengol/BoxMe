@@ -38,14 +38,15 @@ class BodyMudanza extends React.Component {
     }
     else {
       return (
-        <div>
+        <div className="row">
           {this.state.cajas.map((mud, index) =>
             <div key={mud.name + "-" + index}>
               <div>
                 <Container>
-                  <Row>
-                    <Col>
+                  <Row style={{marginTop: "2px"}}>
+                    <Col style={{marginTop: "50px"}}>
                       <CajaComponent
+                        style={{width: "291px", height:"325px"}}
                         link={("/caja/").concat(mud.idCaja)}
                         nombre={mud.nombre}
                       />

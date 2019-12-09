@@ -11,7 +11,34 @@ class Popup extends React.Component {
         super(props);
         this.state = {
             show: false,
+            nombreItem:'',
+            isGoing:false,
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+
+        console.log(this.state);
+
+    }
+
+    handleChange(event) {
+        console.log(this.state);
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
+    async handleSubmit(event) {
+        event.preventDefault();
+        var alertText = "item " + this.state.nombreItem;
+        alert(alertText);
+        console.log(this.state.nombreItem);
+
+        this.handleClose();
 
     }
 
@@ -35,14 +62,15 @@ class Popup extends React.Component {
                     </Modal.Header>
                     <Modal.Body>
                         <FormControl
-                            name="nombre"
+                            name="nombreItem"
+                            onChange={this.handleChange}
                             placeholder="Nombre del Item"
                             aria-label="Username"
                             aria-describedby="basic-addon1"
                         />
                     </Modal.Body>
                     <Modal.Footer style={{ borderTop: 'none' }}>
-                        <Button variant="primary" onClick={this.handleClose.bind(this)}>
+                        <Button variant="primary" onClick={this.handleSubmit}>
                             Agregar
           </Button>
                     </Modal.Footer>

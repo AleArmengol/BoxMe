@@ -62,7 +62,8 @@ class BodyCaja extends React.Component {
                 </div>
                 <div>
                     <div>
-                        <PopupCaja/>
+                        <PopupCaja
+                        id={this.props.idCaja}/>
                     </div>
                     <div>
                         <Button style={{ marginTop: '5px', marginLeft: '5px' }} href="/mudanza">Volver a Mis Cajas</Button>
