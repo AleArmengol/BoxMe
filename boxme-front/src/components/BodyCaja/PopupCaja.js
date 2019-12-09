@@ -34,14 +34,42 @@ class Popup extends React.Component {
 
     async handleSubmit(event) {
         event.preventDefault();
-        var alertText = "item " + this.state.nombreItem;
-        alert(alertText);
+        
         console.log(this.state.nombreItem);
+
+        const url = "http://localhost:8080/api/insertarItem";
+        const nombre = this.state.nombreItem;
+        const idCaja = this.props.id;
+        const data = {
+            "idCaja": idCaja,
+            "nombre": nombre,
+            "cant":1,
+        };
+        console.log(data);
+        const response = await fetch(url, {
+            method: 'POST',
+            mode: "cors",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        })
+        const rta = await response.text();
+        console.log("response", rta);
+
+
+        if(rta === "success"){
+           this.refreshPage();
+        }
+
+
+
 
         this.handleClose();
 
     }
 
+    refreshPage() {
+        window.location.reload(false);
+      }
 
     handleClose() {
         this.setState({ show: false });

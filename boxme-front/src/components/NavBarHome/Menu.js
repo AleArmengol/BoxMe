@@ -1,8 +1,7 @@
 import React from "react";
-import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import box from '../../photos/box.png';
 import './Menu.css';
-import { Redirect } from 'react-router-dom';
 
 class Menu extends React.Component {
   render() {
