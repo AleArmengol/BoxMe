@@ -61,7 +61,7 @@ class BodyCaja extends React.Component {
                     </Container>
                 </div>
                 <div>
-                    <div>
+                    <div className="mr-2 popup-mobile position-absolute" style={{top: '90%', left: '90%'}}>
                         <PopupCaja/>
                     </div>
                     <div>

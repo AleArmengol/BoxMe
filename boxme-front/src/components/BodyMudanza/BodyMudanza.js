@@ -69,7 +69,7 @@ class BodyMudanza extends React.Component {
             <Row className="ml-auto">{this.mostrarSpinner()}</Row>
           </Container>
         </div>
-        <div>
+        <div className="mr-2 popup-mobile position-absolute" style={{top: '90%', left: '90%'}}>
           <PopupMudanza />
         </div>
       </div>

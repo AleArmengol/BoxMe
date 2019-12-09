@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
-import qrcaja from "../../photos/qrcaja.png";
 var QRCode = require("qrcode.react");
 
 class BodyInfo extends React.Component {
