@@ -35,15 +35,16 @@ class BodyMudanza extends React.Component {
       return <Spinner animation="grow" size="sm"></Spinner>;
     } else {
       return (
-        <div>
-          {this.state.cajas.map((mud, index) => (
+        <div className="row">
+          {this.state.cajas.map((mud, index) =>
             <div key={mud.name + "-" + index}>
               <div>
                 <Container>
-                  <Row>
-                    <Col>
+                  <Row style={{marginTop: "2px"}}>
+                    <Col style={{marginTop: "50px"}}>
                       <CajaComponent
-                        link={"/caja/".concat(mud.idCaja)}
+                        style={{width: "291px", height:"325px"}}
+                        link={("/caja/").concat(mud.idCaja)}
                         nombre={mud.nombre}
                         idCaja={mud.idCaja}
                       />
@@ -52,7 +53,7 @@ class BodyMudanza extends React.Component {
                 </Container>
               </div>
             </div>
-          ))}
+          )}
         </div>
       );
     }

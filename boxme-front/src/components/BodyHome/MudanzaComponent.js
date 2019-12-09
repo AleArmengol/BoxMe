@@ -19,7 +19,7 @@ function MudanzaComponent(props) {
                 <img src={mudanzacard} className="card-img" alt="..."></img>
                 <div className="card-img-overlay">
                     <div className="card-body">
-                        <a className="card-title" href={props.link}>{props.title}</a>
+                        <a className="card-title" href={props.link} onClick={sessionStorage.setItem('idMudanza',props.idMud)}>{props.title}</a>
                     </div>
                     <div className="padding-button">
                         <Button style={{ marginRight: '10px' }}>

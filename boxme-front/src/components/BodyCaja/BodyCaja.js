@@ -61,8 +61,10 @@ class BodyCaja extends React.Component {
                     </Container>
                 </div>
                 <div>
-                    <div className="mr-2 popup-mobile position-absolute" style={{top: '90%', left: '90%'}}>
-                        <PopupCaja/>
+                    <div>
+                        <PopupCaja
+                        className="mr-2 popup-mobile position-absolute" style={{top: '90%', left: '90%'}}
+                        id={this.props.idCaja}/>
                     </div>
                     <div>
                         <Button style={{ marginTop: '5px', marginLeft: '5px' }} href="/mudanza">Volver a Mis Cajas</Button>
