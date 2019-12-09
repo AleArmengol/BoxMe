@@ -63,6 +63,7 @@ class BodyCaja extends React.Component {
                 <div>
                     <div>
                         <PopupCaja
+                        className="mr-2 popup-mobile position-absolute" style={{top: '90%', left: '90%'}}
                         id={this.props.idCaja}/>
                     </div>
                     <div>

@@ -88,7 +88,7 @@ class BodyHome extends React.Component {
                         {this.mostrarSpinner()}
                     </Container>
                 </div>
-                <div className="float-right mr-2 popup-mobile">
+                <div className="mr-2 popup-mobile position-absolute" style={{top: '90%', left: '90%'}} >
                     <PopupHome />
                 </div>
             </div >
