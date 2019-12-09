@@ -2,6 +2,7 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LogoCaja from '../../photos/LogoCaja.png'
 import { Container, Row, Image, Button, FormControl } from "react-bootstrap";
+import { Redirect } from 'react-router-dom';
 
 export default class SignUp extends React.Component {
     constructor(props) {
@@ -29,27 +30,39 @@ export default class SignUp extends React.Component {
         });
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
         const url = "http://localhost:8080/api/registrarUsuario";
         const nombre = this.state.nombre;
         const pass = this.state.password;
         const pass2 = this.state.repeatPassword;
-        alert('usu:' + nombre + ', pass:' + pass + ', pass2:' + pass2);
         if (pass === pass2) {
             const data = {
                 "idUsuario": nombre,
                 "password": pass
             }
             console.log(data);
-            fetch(url, {
+            const response = await fetch(url, {
                 method: 'POST',
                 mode: "cors",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
-            });
-            
-        } else{
+            })
+            const rta = await response.text();
+            console.log("response", rta);
+
+            if (rta === "success") {
+                console.log("Entro al if success");
+                alert("Usuario registrado correctamente");
+                this.setState({ redirect: true });
+            } else {
+                if (rta === "errexists") {
+                    alert('Ese nombre de usuario ya se encuentra en uso');
+                } else {
+                    alert('Error al registrar el usuario');
+                }
+            }
+        } else {
             alert('Las contraseñas ingresadas no coinciden');
         }
     }
@@ -58,6 +71,11 @@ export default class SignUp extends React.Component {
 
 
     render() {
+        const { redirect } = this.state;
+
+        if (redirect) {
+            return <Redirect to='/login' />;
+        }
         return (
             <Container className="mt-3">
                 <Row className="row d-flex justify-content-center">

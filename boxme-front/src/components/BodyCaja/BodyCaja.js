@@ -66,7 +66,7 @@ class BodyCaja extends React.Component {
                         id={this.props.idCaja}/>
                     </div>
                     <div>
-                        <Button style={{ marginTop: '5px', marginLeft: '5px' }} href="/mudanza">Volver a Mis Cajas</Button>
+                        <Button style={{ marginTop: '5px', marginLeft: '5px' }} href={("/mudanza/").concat(sessionStorage.getItem('idMudanza'))}>Volver a Mis Cajas</Button>
                     </div>
                 </div>
             </div>

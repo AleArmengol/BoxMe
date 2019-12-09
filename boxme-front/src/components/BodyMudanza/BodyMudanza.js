@@ -53,7 +53,7 @@ class BodyMudanza extends React.Component {
                 </Container>
               </div>
             </div>
-          ))}
+          )}
         </div>
       );
     }

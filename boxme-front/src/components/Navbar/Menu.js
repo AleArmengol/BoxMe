@@ -2,9 +2,52 @@ import React from "react";
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import box from '../../photos/box.png';
 import './Menu.css';
+import { Redirect } from 'react-router-dom';
 
 class Menu extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        buscar: '',
+        isGoing: false,
+        redirect: false,
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    console.log(this.state);
+}
+
+handleChange(event) {
+    console.log(event);
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+        [name]: value
+    });
+}
+
+async handleSubmit(event) {
+    event.preventDefault();
+    
+    console.log(this.state.buscar);
+
+    this.setState({ redirect: true });
+}
+
+
+
   render() {
+
+    const { redirect } = this.state;
+    const { buscar } = this.state;
+
+    if(redirect){
+        return <Redirect to={("/busqueda/").concat(buscar)} />;
+    }
+
     return (
       <Navbar className="navbar-style" expand="lg">
         <Navbar.Brand href="/home">
@@ -20,8 +63,8 @@ class Menu extends React.Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Nav className="buscar-mobile">
           <Form inline>
-            <FormControl type="search" placeholder="Buscar" className="col-8 mr-2"/>
-            <Button href="/busqueda" className="col-2">Ir!</Button>
+            <FormControl name="buscar" onChange={this.handleChange} type="search" placeholder="Buscar" className="col-8 mr-2"/>
+            <Button onClick={this.handleSubmit} className="col-2">Ir!</Button>
           </Form>
         </Nav>
         <Navbar.Collapse id="basic-navbar-nav">
@@ -34,8 +77,8 @@ class Menu extends React.Component {
         </Navbar.Collapse>
         <div className="buscar-web">
           <Form inline>
-            <FormControl type="search" placeholder="Buscar" className="mr-sm-2" />
-            <Button href="/busqueda">Ir!</Button>
+            <FormControl  name="buscar" onChange={this.handleChange} type="search" placeholder="Buscar" className="mr-sm-2" />
+            <Button onClick={this.handleSubmit}>Ir!</Button>
           </Form>
         </div>
       </Navbar>

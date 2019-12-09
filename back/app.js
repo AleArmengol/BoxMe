@@ -16,15 +16,15 @@ var config = {
   authentication: {
     type: "default",
     options: {
-      userName: "sa",
-      password: "alexis1398" //CAMBIAR A LA CONTRASEÑA DE CADA UNO
+      userName: "sa2",
+      password: "1234" //CAMBIAR A LA CONTRASEÑA DE CADA UNO
     }
   },
   options: {
     //puede que generer error, comentar encrypt si es asi
     // If you are on Microsoft Azure, you need encryption:
     encrypt: true,
-    database: "BoxMeDB" //nombre de la base de datos creada en sql CADA UNO PONGA SU BD
+    database: "BoxMe" //nombre de la base de datos creada en sql CADA UNO PONGA SU BD
   }
 };
 
@@ -193,18 +193,18 @@ app.post("/api/registrarUsuario", function(req, res) {
   var request = new sql.Request();
   request.query(query, function(err, recordset) {
     if (err) {
-      console.log("Error al verificar usuario");
+      console.log("err");
     } else {
       if (recordset.recordset.length === 1) {
-        res.send("El usuario ingresado ya existe");
+        res.send("errexists");
       } else {
         var queryRegistrar =
-          "INSERT INTO Usuarios VALUES(" + idUsuario + "," + password + ")";
+          "INSERT INTO Usuarios VALUES(" + nombreUsuario + "," + password + ")";
         console.log(queryRegistrar);
         var requestRegistrar = new sql.Request();
         requestRegistrar.query(queryRegistrar, function(err, recordset) {
           if (err) {
-            res.send("Error al registrar usuario");
+            res.send("err");
           } else {
             res.send("success");
           }
