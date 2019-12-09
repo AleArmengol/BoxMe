@@ -1,20 +1,27 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
-import qrcaja from '../../photos/qrcaja.png';
+import qrcaja from "../../photos/qrcaja.png";
+var QRCode = require("qrcode.react");
 
 class BodyInfo extends React.Component {
-    render() {
-      return (
-        <Container className="mt-3">
-            <Row>
-                <h4>Información de la Caja</h4>
-            </Row>
-            <Row>
-                <img src={qrcaja} alt="qr"/>
-            </Row>
-        </Container>
-      );
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      link: "http://localhost:3000/caja/" + sessionStorage.getItem("idCaja")
+    };
+  }
+  render() {
+    return (
+      <Container className="mt-3">
+        <Row>
+          <h4>{sessionStorage.getItem("nombreCaja")}</h4>
+        </Row>
+        <Row>
+          <QRCode value={this.state.link}></QRCode>
+        </Row>
+      </Container>
+    );
+  }
 }
 
 export default BodyInfo;
