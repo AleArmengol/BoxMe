@@ -56,7 +56,8 @@ class Popup extends React.Component {
         console.log("response", rta);
 
 
-        if(rta === "success"){
+        if(rta === "Success"){
+            console.log("entro al if refresh");
            this.refreshPage();
         }
 
@@ -68,7 +69,7 @@ class Popup extends React.Component {
     }
 
     refreshPage() {
-        window.location.reload(false);
+        window.location.reload();
       }
 
     handleClose() {

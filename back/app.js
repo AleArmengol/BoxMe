@@ -237,12 +237,11 @@ app.post("/api/insertarCaja", function(req, res) {
 
 //nuevo insertar caja con alfanumerico
 app.post("/api/insertarCaja", function(req, res) {
-  var idCaja = req.body.idCaja;
   var nombre = req.body.nombre;
   var idMudanza = req.body.idMudanza;
   var rLetter = randomString(3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
   var rNumbers = randomString(3, "0123456789");
-  idCaja = rLetter + "-" + rNumbers;
+  var idCaja = rLetter + "-" + rNumbers;
   idCaja = "'" + idCaja + "'"; //se le agregan las comillas simples para armar la query correctamente
   var query = "SELECT * FROM Cajas WHERE idCaja = " + idCaja;
   console.log("QUERY: " + query);
