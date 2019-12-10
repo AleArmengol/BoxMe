@@ -16,15 +16,15 @@ var config = {
   authentication: {
     type: "default",
     options: {
-      userName: "sa2",
-      password: "1234" //CAMBIAR A LA CONTRASEÑA DE CADA UNO
+      userName: "sa",
+      password: "alexis1398" //CAMBIAR A LA CONTRASEÑA DE CADA UNO
     }
   },
   options: {
     //puede que generer error, comentar encrypt si es asi
     // If you are on Microsoft Azure, you need encryption:
     encrypt: true,
-    database: "BoxMe" //nombre de la base de datos creada en sql CADA UNO PONGA SU BD
+    database: "BoxMeDB" //nombre de la base de datos creada en sql CADA UNO PONGA SU BD
   }
 };
 
@@ -152,6 +152,58 @@ app.post("/api/getItems", function(req, res) {
       console.log(err);
     } else {
       res.send(recordset.recordset);
+    }
+  });
+});
+
+app.post("/api/insertarMudanza", function(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+
+  var nombreMudanza = req.body.nombreMudanza;
+  nombreMudanza = "'" + nombreMudanza + "'";
+  var queryInsertarMudanza =
+    "INSERT INTO Mudanzas VALUES (" + nombreMudanza + ")";
+  console.log(queryInsertarMudanza);
+  var request = new sql.Request();
+  request.query(queryInsertarMudanza, function(err, recordset) {
+    if (err) {
+      console.log(err);
+    } else {
+      return "Success";
+    }
+  });
+});
+
+app.post("/api/obteneridMudanza", function(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  var nombreMudanza = req.body.nombreMudanza;
+  nombreMudanza = "'" + nombreMudanza + "'";
+  var queryObtenerIdMud =
+    "SELECT * FROM Mudanzas WHERE nombre = " + nombreMudanza;
+  console.log(queryObtenerIdMud);
+  var requestObtenerMud = new sql.Request();
+  requestObtenerMud.query(queryObtenerIdMud, function(err, recorset) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(recorset.recordset);
+    }
+  });
+});
+
+app.post("/api/insertarUsuariosMudanza", function(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  var idUsuario = req.body.idUsuario;
+  var idMudanza = req.body.idMudanza;
+  idUsuario = "'" + idUsuario + "'"; //se le agregan las comillas simples para armar la query correctamente
+  var queryInsertarUM =
+    "INSERT INTO UsuariosMudanza VALUES (" + idMudanza + "," + idUsuario + ")";
+  var requestInsertarUM = new sql.Request();
+  requestInsertarUM.query(queryInsertarUM, function(err, recorset) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send("Success");
     }
   });
 });
