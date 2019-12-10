@@ -65,7 +65,7 @@ class BodyMudanza extends React.Component {
         <div>
           <Container className="mt-3">
             <Row className="ml-auto">
-              <h3>Nombre de la mudanza</h3>
+              <h3>{sessionStorage.getItem('nombreMudanza')}</h3>
             </Row>
             <Row className="ml-auto">{this.mostrarSpinner()}</Row>
           </Container>

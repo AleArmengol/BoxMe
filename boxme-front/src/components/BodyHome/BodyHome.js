@@ -52,7 +52,8 @@ class BodyHome extends React.Component {
                                 <MudanzaComponent
                                     title={mud.nombre}
                                     link={("/mudanza/").concat(mud.idMudanza[0])}
-                                    idMud={mud.idMudanza[0]}
+                                    idMudanza={mud.idMudanza[0]}
+                                    nombre={mud.nombre}
                                 />
                             </Row>
                         </div>)}

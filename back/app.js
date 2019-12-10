@@ -16,15 +16,15 @@ var config = {
   authentication: {
     type: "default",
     options: {
-      userName: "sa",
-      password: "alexis1398" //CAMBIAR A LA CONTRASEÑA DE CADA UNO
+      userName: "sa2",
+      password: "1234" //CAMBIAR A LA CONTRASEÑA DE CADA UNO
     }
   },
   options: {
     //puede que generer error, comentar encrypt si es asi
     // If you are on Microsoft Azure, you need encryption:
     encrypt: true,
-    database: "BoxMeDB" //nombre de la base de datos creada en sql CADA UNO PONGA SU BD
+    database: "BoxMe" //nombre de la base de datos creada en sql CADA UNO PONGA SU BD
   }
 };
 
@@ -169,7 +169,7 @@ app.post("/api/insertarMudanza", function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      return "Success";
+      res.send("Success");
     }
   });
 });
@@ -501,7 +501,7 @@ function obtenerCajas(idMudanza, res) {
       //console.log("RECORDSET CAJA " + recordset.recordset[0].nombre);
       //console.log("I am ready");
       if (res != null) {
-        console.log("Cajas: " + recordset.recordset[0].nombre);
+        //console.log("Cajas: " + recordset.recordset[0].nombre);
         console.log("RES2: " + res);
         res.send(recordset.recordset);
       } else {

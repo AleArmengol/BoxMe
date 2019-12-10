@@ -8,31 +8,48 @@ function renderTooltip(props) {
     return <Tooltip {...props}>¡Abreme para ver mis cajas!</Tooltip>;
 }
 
-function MudanzaComponent(props) {
-    return (
-        <OverlayTrigger
-            placement="right"
-            delay={{ show: 250, hide: 400 }}
-            overlay={renderTooltip}
-        >
-            <div className="card mb-3" style={{ maxWidth: '540px', marginBottom: '7px', marginTop: '10px' }}>
-                <img src={mudanzacard} className="card-img" alt="..."></img>
-                <div className="card-img-overlay">
-                    <div className="card-body">
-                        <a className="card-title" href={props.link} onClick={sessionStorage.setItem('idMudanza',props.idMud)}>{props.title}</a>
-                    </div>
-                    <div className="padding-button">
-                        <Button style={{ marginRight: '10px' }}>
-                            <DeleteOutline />
-                        </Button>
-                        <Button>
-                            <Edit />
-                        </Button>
+
+class MudanzaComponent extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+
+    clickInfo(){
+        sessionStorage.setItem("idMudanza", this.props.idMudanza);
+        sessionStorage.setItem("nombreMudanza", this.props.nombre);
+        console.log("hola1");
+    };
+
+    
+
+
+    render() {
+        return (
+            <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={renderTooltip}
+            >
+                <div className="card mb-3" style={{ maxWidth: '540px', marginBottom: '7px', marginTop: '10px' }}>
+                    <img src={mudanzacard} className="card-img" alt="..."></img>
+                    <div className="card-img-overlay">
+                        <div className="card-body">
+                            <a className="card-title" href={this.props.link} onClick={this.clickInfo.bind(this)}>{this.props.title}</a>
+                        </div>
+                        <div className="padding-button">
+                            <Button style={{ marginRight: '10px' }}>
+                                <DeleteOutline />
+                            </Button>
+                            <Button>
+                                <Edit />
+                            </Button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </OverlayTrigger>
-    )
+            </OverlayTrigger>
+        )
+    }
 }
-
 export default MudanzaComponent;
